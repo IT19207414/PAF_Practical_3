@@ -79,22 +79,27 @@ public Connection connect(){
 					+"<th>Item Name</th><th>Item Price</th>"
 					+ "<th>Item Description</th>"
 					+ "<th>Update</th><th>Remove</th></tr>";
-					String query = "select * from items";
-					Statement stmt = con.createStatement();
-					ResultSet rs = stmt.executeQuery(query);
+			
+			String query = "select * from items";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
 					// iterate through the rows in the result set
-					while (rs.next())
-					{
-					String itemID = Integer.toString(rs.getInt("itemID"));
-					String itemCode = rs.getString("itemCode");
-					String itemName = rs.getString("itemName");
-					String itemPrice = Double.toString(rs.getDouble("itemPrice"));
-					String itemDesc = rs.getString("itemDesc");
+			while (rs.next())
+			{
+				String itemID = Integer.toString(rs.getInt("itemID"));
+				String itemCode = rs.getString("itemCode");
+				String itemName = rs.getString("itemName");
+				String itemPrice = Double.toString(rs.getDouble("itemPrice"));
+				String itemDesc = rs.getString("itemDesc");
+				
 					// Add a row into the html table
+				
 					output += "<tr><td>" + itemCode + "</td>";
 					output += "<td>" + itemName + "</td>";
 					output += "<td>" + itemPrice + "</td>";
 					output += "<td>" + itemDesc + "</td>";
+					
 					// buttons
 					output += "<td><input name='btnUpdate' "
 					+ " type='button' value='Update'></td>"
@@ -103,7 +108,7 @@ public Connection connect(){
 					+ " type='submit' value='Remove'>"
 					+ "<input name='itemID' type='hidden' "
 					+ " value='" + itemID + "'>" + "</form></td></tr>";
-					}
+			}
 					
 			con.close();
 			
