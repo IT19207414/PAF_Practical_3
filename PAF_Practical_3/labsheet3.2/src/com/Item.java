@@ -160,7 +160,7 @@ public Connection connect(){
 		return output;
 	}
 	
-	public String updateItem(String itemID, String code, String name, String price, String desc)
+	public String updateItem(String code, String name, String price, String desc)
 	{
 		String output = "";
 		
@@ -173,14 +173,14 @@ public Connection connect(){
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "update item set itemCode = ?, itemName = ?, itemPrice = ?, itemDesc = ? where itemID=?";
+			String query = "update item set itemCode = ?, itemName = ?, itemPrice = ?, itemDesc = ? where itemCode=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, code);
 			preparedStmt.setString(2, name);
 			preparedStmt.setDouble(3, Double.parseDouble(price));
 			preparedStmt.setString(4, desc);
-			preparedStmt.setInt(5, Integer.parseInt(itemID));
+			preparedStmt.setString(5, code);
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
