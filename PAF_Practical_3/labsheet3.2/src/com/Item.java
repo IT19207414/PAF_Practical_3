@@ -101,19 +101,21 @@ public Connection connect(){
 					output += "<td>" + itemDesc + "</td>";
 					
 					// buttons
-					output += "<td>"
-							+ "<form method='post' action='update.jsp'> "
-							+ "<input name='btnUpdate' type='submit' value='Update' class='btn btn-danger'>"
-							+ "<input name='itemID' type='hidden' value='" + itemID + "'>" + ""
-							+ "</form"
-							+ "</td>"
-					+ "<td>"
-					+ "<form method='post' action='item.jsp'>"
-					+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-					+ "<input name='itemID' type='hidden' value='" + itemID + "'>" + ""
-					+ "</form"
-					+ "</td>"
-					+ "</tr>";
+					
+					// buttons
+					output += "<td><form method='post' action='update.jsp'><input name='btnUpdate' "
+					+ " type='submit' value='Update' class = 'btn btn-secondary'><input name='itemID' type='hidden'"
+					+ " value='" + itemID + "'>"
+					+" <input name='itemCode' type='hidden' value='" + itemCode + "'>"
+					+" <input name='itemName' type='hidden' value='" + itemName+ "'>"
+					+" <input name='itemPrice' type='hidden' value='" + itemPrice + "'>"
+					+" <input name='itemDesc' type='hidden' value='" + itemDesc + "'>"
+					+ "</form></td>"
+					+ "<td><form method='post' action='items.jsp'>"
+					+ "<input name='btnRemove'"
+					+ " type='submit' value='Remove' class = 'btn btn-danger'>"
+					+ "<input name='itemID' type='hidden' "
+					+ " value='" + itemID + "'>" + "</form></td></tr>";
 			}
 					
 			con.close();
@@ -160,7 +162,7 @@ public Connection connect(){
 		return output;
 	}
 	
-	public String updateItem(String code, String name, String price, String desc)
+	public String updateItem(String id, String code, String name, String price, String desc)
 	{
 		String output = "";
 		
@@ -173,14 +175,14 @@ public Connection connect(){
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "update item set itemCode = ?, itemName = ?, itemPrice = ?, itemDesc = ? where itemCode=?";
+			String query = "update item set itemCode = ?, itemName = ?, itemPrice = ?, itemDesc = ? where itemID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, code);
 			preparedStmt.setString(2, name);
 			preparedStmt.setDouble(3, Double.parseDouble(price));
 			preparedStmt.setString(4, desc);
-			preparedStmt.setString(5, code);
+			preparedStmt.setString(5, id);
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
